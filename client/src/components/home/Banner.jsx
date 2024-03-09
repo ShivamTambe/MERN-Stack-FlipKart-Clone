@@ -25,7 +25,7 @@ const responsive = {
   };
 
 const Banner=()=>{
-
+ 
     return (
         <Carousel 
             swipeable={false}

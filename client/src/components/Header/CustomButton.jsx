@@ -24,7 +24,7 @@ const LoginButton = styled(Button)`
     font-weight:600;
     height:32px;
 `
-
+ 
 const CustomButton =()=>{
     return (
         <Wrapper>

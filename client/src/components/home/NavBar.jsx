@@ -32,4 +32,4 @@ const NavBar=()=>{
         </Component>
     )
 }
-export default NavBar;
+export default NavBar; 
