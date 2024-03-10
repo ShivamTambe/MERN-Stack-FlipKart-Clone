@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {Box, Button, Dialog, TextField, Typography, styled} from '@mui/material';
+import { authenticateSignup, authenticateLogin } from '../../service/api';
+
+import { DataContext } from '../../context/dataProvider';
 
 const Component = styled(Box)`
     height:70vh;
@@ -54,6 +57,13 @@ const CreateAccount=styled(Typography)`
     font-weight:600;
     cursor:pointer;
 `
+const Error=styled(Typography)`
+    font-size:10px;
+    color:#ff6161;
+    line-heigh:0;
+    margin-top:10px;
+    font-weight:600;
+`
 
 const accountInitialValue={
     login:{
@@ -67,14 +77,55 @@ const accountInitialValue={
         subHeading:'Sign up with your mobile number to get started'
     }
 }
+const signupInitialValue={
+    firstname:'',
+    lastname:'',
+    username:'',
+    email:'',
+    password:'',
+    phone:''
+}
+const loginInitialValue={
+    username:'',
+    password:''
+}
 const LoginDialog = ({open,setOpen}) =>{
     const [account,toggleAccount]=useState(accountInitialValue.login);
+    const [signup,setSignup]=useState(signupInitialValue);
+    const [login,setLogin]=useState(loginInitialValue);
+    const [error,setError]=useState(false);
+
+    const {setAccount} =useContext(DataContext);
     const handleClose=()=>{
         setOpen(false);
         toggleAccount(accountInitialValue.login);
+        setError(false);
     }
     const toggleSignup=()=>{
         toggleAccount(accountInitialValue.signup)
+    }
+
+    const onInoutChange=(e)=>{
+        setSignup({...signup,[e.target.name]:e.target.value});     // Variable as Key so In Square Bracket
+    }
+    const signupUser=async()=>{
+        let response = await authenticateSignup(signup);
+        if(!response) return;
+        handleClose();
+        setAccount(signup.firstname);
+    }
+    const onValueChange=(e)=>{
+        setLogin({...login,[e.target.name]:e.target.value})
+    }
+    const loginUser=async()=>{
+        const response = await authenticateLogin(login);
+        console.log(response);
+        if(response.status===200){
+            handleClose();
+            setAccount(response.data.data.firstname);
+        }else{
+            setError(true);
+        }   
     }
     return (
         <Dialog open={open} onClose={handleClose} PaperProps={{sx:{maxWidth:'unset'}}}>
@@ -87,23 +138,26 @@ const LoginDialog = ({open,setOpen}) =>{
                     { 
                         account.view === 'login' ?
                         <Wrapper>
-                            <TextField varient='standard'label="Enter Email/Enter Mobile Number"/>
-                            <TextField varient='standard'label="Enter Password"/>
+                            <TextField varient='standard' onChange={(e)=> onValueChange(e)} name='username' label="Enter UserName"/>
+
+                            { error && <Error>Please Enter Valid UserName or Password</Error> }
+
+                            <TextField varient='standard' onChange={(e)=> onValueChange(e)} name="password" label="Enter Password"/>
                             <Text>By continuing , you agree to Flipkart's Term of Use and Privacy Polociy</Text>
-                            <LoginButton>Login</LoginButton>
+                            <LoginButton onClick={()=>loginUser()}>Login</LoginButton>
                             <Typography style={{textAlign:'center'}}>OR</Typography>
                             <RequestOTP>Request OTP</RequestOTP>
                             <CreateAccount onClick={()=>toggleSignup()}>New to FlipKart? Create an account.</CreateAccount>
                         </Wrapper>
                         :
                         <Wrapper>
-                            <TextField varient='standard'label="Enter FirstName"/>
-                            <TextField varient='standard'label="Enter LastName"/>
-                            <TextField varient='standard'label="Enter UserName"/>
-                            <TextField varient='standard'label="Enter Email"/>
-                            <TextField varient='standard'label="Enter Password"/>
-                            <TextField varient='standard'label="Enter Phone"/>
-                            <LoginButton>Continue</LoginButton>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="firstname" label="Enter FirstName"/>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="lastname" label="Enter LastName"/>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="username" label="Enter UserName"/>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="email" label="Enter Email"/>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="password" label="Enter Password"/>
+                            <TextField varient='standard' onChange={(e)=> onInoutChange(e)} name="phone" label="Enter Phone"/>
+                            <LoginButton onClick={()=>signupUser()}>Continue</LoginButton>
 
                         </Wrapper>
                     }
