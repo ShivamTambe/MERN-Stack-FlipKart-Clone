@@ -5,10 +5,14 @@ import { styled } from '@mui/material';
 import { bannerData } from '../../constants/data';
 
 
-const Image=styled('img')({
-    width:'100%',
-    height: 280
-})
+const Image = styled('img')(({ theme }) => ({
+    width: '100%',
+    height: 280,
+    [theme.breakpoints.down('md')]: {
+        objectFit: 'cover',
+        height: 180
+    }
+}));
 const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
