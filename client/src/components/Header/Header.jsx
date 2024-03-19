@@ -31,7 +31,7 @@ const PlusImage = styled('img')({
 
 const CustomButtonWrapper = styled('span')(({ theme }) => ({ 
     margin: '0 5% 0 auto',
-    display:'none',
+    display:'block',
     // [theme.breakpoints.down('md')]: {
     //     display: 'none'
     // }
