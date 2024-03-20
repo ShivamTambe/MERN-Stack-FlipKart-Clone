@@ -6,11 +6,12 @@ import { Box, Typography, Button, Grid, styled } from '@mui/material';
 
 import CartItems from "./CartItem";
 import TotalView from "./TotalView";
+import EmptyCart from "./EmptyCart";
 
 const Container = styled(Grid)(({ theme }) => ({
     padding: '30px 135px',
     display: 'flex',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
         padding: '15px 0'
     }
 }));
@@ -69,7 +70,7 @@ const Cart=()=>{
                         <TotalView cartItems={cartItems}/>
                     </Grid>
                 </Container>
-                : <div>Empty</div>
+                : <EmptyCart/>
         }
         </>
     )
