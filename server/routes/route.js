@@ -21,5 +21,5 @@ router.post('/order',addRazorPay);
 router.post('/order/validate',addOrderValid);
 
 
-router.get('/',getRoute);
+// router.get('/',getRoute);
 export default router;

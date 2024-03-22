@@ -25,6 +25,9 @@ const PASSWORD=process.env.DB_Password;
 console.log(USERNAME);
 console.log(PASSWORD);
 Connection(USERNAME,PASSWORD);
+app.get("/",function(req,res){
+    res.send("Server is RUnning Fine");
+})
 app.listen(PORT,()=>{
     console.log(`server is running successfully on ${PORT}`)
 })
