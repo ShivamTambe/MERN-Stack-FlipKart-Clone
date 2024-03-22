@@ -22,6 +22,8 @@ const PORT = 8000;
 
 const USERNAME=process.env.DB_UserName;
 const PASSWORD=process.env.DB_Password;
+console.log(USERNAME);
+console.log(PASSWORD);
 Connection(USERNAME,PASSWORD);
 app.listen(PORT,()=>{
     console.log(`server is running successfully on ${PORT}`)
