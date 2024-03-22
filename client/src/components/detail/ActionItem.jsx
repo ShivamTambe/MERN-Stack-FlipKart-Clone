@@ -34,7 +34,7 @@ const StyledButton = styled(Button)(({theme})=>({
     }
 }))
     
-const ActionItem =({product})=>{
+const ActionItem =({product, price})=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [ quantity ] = useState(1);
@@ -53,7 +53,7 @@ const ActionItem =({product})=>{
     //     post(information);
     // }
 
-    const amount = 5000000;
+    const amount = price*100;
     const currency = "INR";
     const buyNow=async(e)=>{
         const  response = await fetch("http://localhost:8000/order",{

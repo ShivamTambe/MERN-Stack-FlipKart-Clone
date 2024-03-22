@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Box, Typography, Button, Grid, styled } from '@mui/material';
-
-
+import { useContext } from "react";
+import { DataContext } from "../../context/dataProvider";
 // componentns
 
 import CartItems from "./CartItem";
@@ -46,7 +46,8 @@ const StyledButton = styled(Button)`
 `;
 const Cart=()=>{
     const {cartItems} = useSelector(state => state.cart);
-    const amount = 5000000;
+    const {totalPrice}= useContext(DataContext);
+    const amount = totalPrice*100;
     const currency = "INR";
     const buyNow=async(e)=>{
         const  response = await fetch("http://localhost:8000/order",{

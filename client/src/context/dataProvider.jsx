@@ -4,10 +4,13 @@ export const DataContext = createContext(null);
 
 const DataProvider=({children})=>{
     const [account,setAccount]=useState('');
+    const [totalPrice,setTotalPrice]=useState(0);
     return(
         <DataContext.Provider value={{
             account,
-            setAccount
+            totalPrice,
+            setAccount,
+            setTotalPrice
         }}>
             { children}
         </DataContext.Provider>

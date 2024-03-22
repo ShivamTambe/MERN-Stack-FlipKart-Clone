@@ -1,7 +1,7 @@
 import { Box, Typography,styled } from "@mui/material";
 
-
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
+import { DataContext } from "../../context/dataProvider";
 
 const Header = styled(Box)`
     padding: 15px 24px;
@@ -34,6 +34,8 @@ const Discount = styled(Typography)`
 const TotalView =(cartItems)=>{
     const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
+
+    const {setTotalPrice}= useContext(DataContext);
     console.log(cartItems);
     useEffect(() => {
         totalAmount();
@@ -48,6 +50,7 @@ const TotalView =(cartItems)=>{
             })
         }
         setPrice(price);
+        setTotalPrice(price - discount + 40);
         setDiscount(discount);
     }
     return(

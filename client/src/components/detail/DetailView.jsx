@@ -1,4 +1,4 @@
-import { useEffect  } from "react";
+import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -35,7 +35,6 @@ const DetailView =()=>{
     
     const {id}=useParams();
     const dispatch = useDispatch();
-    
     const productDetails = useSelector(state => state.getProductDetails);
     // let loading = productDetails ? productDetails.loading : false;
     let product = productDetails ? productDetails.product : null;
@@ -52,7 +51,7 @@ const DetailView =()=>{
                 product && Object.keys.length &&
                     <Container container>
                         <Grid item lg={4} md={4} sm={8} xs={12}>
-                            <ActionItem product={product} />
+                            <ActionItem product={product} price={product.price.cost}/>
                         </Grid>
                         <RightContainer item lg={8} md={8} sm={8} xs={12}>
                             <ProductDetail product={product}/>
