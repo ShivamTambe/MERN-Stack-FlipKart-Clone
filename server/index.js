@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json({extended:true}));
 app.use(bodyParser.urlencoded({extended:true}));
 
-// app.use('/',Router);
+app.use('/',Router);
 
 const PORT = process.env.PORT || 8000;
 
@@ -25,9 +25,6 @@ const PASSWORD=process.env.DB_Password;
 console.log(USERNAME);
 console.log(PASSWORD);
 Connection(USERNAME,PASSWORD);
-app.use("/",function(req,res){
-    res.send("Server is RUnning  ALL Fine");
-})
 app.listen(PORT,()=>{
     console.log(`server is running successfully on ${PORT}`)
 })
